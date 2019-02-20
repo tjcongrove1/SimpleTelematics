@@ -2,6 +2,7 @@ package com.root.telematics.mapper;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class DriverTripsMapperTest {
 	List<String> drivers = new ArrayList<String>();
 
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		// Read the test file as a pre-step
 		testFileLines = FileHandler.readTelemetryFile("src//test//resources//rawTrips.dat");
 
@@ -37,7 +38,19 @@ public class DriverTripsMapperTest {
 		// Perform actual mapping call to find drivers and assign trips
 		List<Driver> testDriverTrips = DriverTripsMapper.mapFileToDriversList(testFileLines);
 
-		// Perform driver-level average speed calculation
+		// Make sure the right number of drivers are identified
+		assertEquals(testDriverTrips.size(), drivers.size());
+		// Make sure our default driver has his trips correctly assigned
+		assertEquals(testDriverTrips.stream().filter(driver -> "mrdonttouchme".equalsIgnoreCase(driver.getDriverName()))
+				.findFirst().get().getDriverTrips().size(), 2);
+	}
+	
+	@Test
+	public void testDriverTripCalculations() {
+		// Perform actual mapping call to find drivers and assign trips
+		List<Driver> testDriverTrips = DriverTripsMapper.mapFileToDriversList(testFileLines);
+
+		// Perform driver-level average speed calculation from file
 		for (Driver driver : testDriverTrips) {
 			if (driver.getDriverName().equalsIgnoreCase("mrdonttouchme")) {
 				assertEquals(driver.getAverageSpeedForAllTrips(), 60);
@@ -45,11 +58,13 @@ public class DriverTripsMapperTest {
 			System.out.println(driver.getDriverName() + " " + driver.getAverageSpeedForAllTrips());
 		}
 		
-		// Make sure the right number of drivers are identified
-		assertEquals(testDriverTrips.size(), drivers.size());
-		// Make sure our default driver has his trips correctly assigned
-		assertEquals(testDriverTrips.stream().filter(driver -> "mrdonttouchme".equalsIgnoreCase(driver.getDriverName()))
-				.findFirst().get().getDriverTrips().size(), 2);
+		// Perform driver-level total mileage calculation from file
+		for (Driver driver : testDriverTrips) {
+			if (driver.getDriverName().equalsIgnoreCase("mrdonttouchme")) {
+				assertEquals(driver.getTotalMilesForAllTrips(), 240);
+			}
+			System.out.println(driver.getDriverName() + " " + driver.getTotalMilesForAllTrips());
+		}
 	}
 
 }

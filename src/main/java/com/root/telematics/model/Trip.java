@@ -16,11 +16,13 @@ public class Trip {
 		this.averageSpeed = calculateAverageSpeed();
 	}
 
+	/**
+	 * This method calculates the average speed traveled during the trip based on
+	 * miles driven and the time elapsed
+	 * 
+	 * @return the average speed during the trip
+	 */
 	private int calculateAverageSpeed() {
-//		debugging statement
-//		
-//		System.out.println(startTime + " " + endTime + " " + milesDriven + " "
-//				+ (int) Math.round(milesDriven / ((double) Duration.between(startTime, endTime).getSeconds()) * 3600));
 		return (int) Math.round(milesDriven / ((double) Duration.between(startTime, endTime).getSeconds()) * 3600);
 	}
 

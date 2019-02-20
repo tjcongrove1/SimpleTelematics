@@ -1,6 +1,11 @@
 com\root\telematics\io\FileHandlerTest.class
+com\root\telematics\model\TestTripCalculation.class
+com\root\telematics\io\SortByMileage.class
+com\root\telematics\model\TestDriverCalculation.class
 com\root\telematics\io\FileHandler.class
 com\root\telematics\mapper\DriverTripsMapper.class
 com\root\telematics\model\Driver.class
+com\root\telematics\io\ReportGenerator.class
 com\root\telematics\model\Trip.class
 com\root\telematics\mapper\DriverTripsMapperTest.class
+com\root\telematics\SimpleTelematics.class

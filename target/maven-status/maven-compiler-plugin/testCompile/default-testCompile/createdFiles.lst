@@ -1,2 +1,4 @@
 com\root\telematics\io\FileHandlerTest.class
+com\root\telematics\model\TestTripCalculation.class
 com\root\telematics\mapper\DriverTripsMapperTest.class
+com\root\telematics\model\TestDriverCalculation.class
