@@ -98,6 +98,10 @@ public int getAverageSpeedForAllTripsBasedOnTotals()
 
 ### Trip
 Trip is a simple construct that houses all pieces of trip telemetry from the file and, again, can be easily extended with minimal outside impacts
+
+I leveraged a few new pieces of Java 8 functionality for this project, but some of my favorites probably revolved around the new ```java.time``` API that completely removed the need for external libraries like JodaTime, and replaced many cumbersome ```java.util.date``` logical implementations.  LocalTime is a clean, simple way to represent a raw time in hours, minutes, and seconds without playing the notorious "everything is a calendar!!" game.
+
+Casts are clean and relatively safe, there's a correlated ```Duration``` implementation that takes the guesswork out of figuring out intervals, and the amount of code you need to write is cut into fractions compared to Java 7 and prior.
 ```java
 public class Trip {
 	private LocalTime startTime;
