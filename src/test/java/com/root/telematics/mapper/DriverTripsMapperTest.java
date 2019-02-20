@@ -27,7 +27,7 @@ public class DriverTripsMapperTest {
 		 * the tests
 		 */
 		for (List<String> line : testFileLines) {
-			if (!drivers.contains(line.get(1))) {
+			if (line.get(0).equalsIgnoreCase("driver") && !drivers.contains(line.get(1))) {
 				drivers.add(line.get(1));
 			}
 		}
