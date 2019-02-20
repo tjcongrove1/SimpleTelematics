@@ -38,16 +38,19 @@ public class ReportGenerator {
 		for (Driver driver : drivers) {
 			System.out.print(driver.getDriverName() + ": " + driver.getTotalMilesForAllTrips() + " miles");
 			if (driver.getTotalMilesForAllTrips() > 0) {
-				System.out.print(" @ " + Math.round(
-						((double) (driver.getTotalMilesForAllTrips() / (double) (driver.getTotalMinutesForAllTrips())))
-								* 60)
-						+ " mph");
+				System.out.print(" @ " + driver.getAverageSpeedForAllTripsBasedOnTotals() + " mph");
 			}
 			System.out.print(System.lineSeparator());
 		}
 	}
 }
 
+/**
+ * This class simply changes the way list sorting behaves for the Driver class
+ * 
+ * @author congrt1
+ *
+ */
 class SortByMileage implements Comparator<Driver> {
 	// Used for sorting in descending order of
 	// miles driven

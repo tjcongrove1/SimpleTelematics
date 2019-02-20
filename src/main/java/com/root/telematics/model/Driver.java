@@ -11,6 +11,15 @@ public class Driver {
 		this.setDriverName(name);
 	}
 
+	public int getAverageSpeedForAllTripsBasedOnTotals() {
+		if (null != this.driverTrips) {
+			return (int) Math.round(
+					((double) (this.getTotalMilesForAllTrips() / (double) (this.getTotalMinutesForAllTrips()))) * 60);
+		} else {
+			return 0;
+		}
+	}
+
 	/**
 	 * This method calculates the average speed across all child trips associated
 	 * with a Driver entity based on the precalculated average speed of each trip
@@ -51,7 +60,13 @@ public class Driver {
 			return 0;
 		}
 	}
-	
+
+	/**
+	 * This method calculates the total number of minutes across all child trips
+	 * associated with a Driver entity
+	 * 
+	 * @return the total number of minutes driven for all trips taken
+	 */
 	public int getTotalMinutesForAllTrips() {
 		if (null != this.driverTrips) {
 			int totaltime = 0;
@@ -97,10 +112,10 @@ public class Driver {
 	}
 
 	/**
+	 * If there are no trips present in the list, initialize it first
+	 * 
 	 * @param driverTrip
 	 *            the driverTrip to add to the list
-	 * 
-	 *            If there are no trips present in the list, initialize it first
 	 */
 	public void addDriverTrip(Trip driverTrip) {
 		if (null != this.driverTrips) {

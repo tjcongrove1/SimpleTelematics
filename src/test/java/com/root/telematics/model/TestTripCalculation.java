@@ -27,4 +27,11 @@ public class TestTripCalculation {
 		System.out.println(driver.getDriverName() + " " + trips.get(0).getAverageSpeed());
 	}
 
+	@Test
+	public void testTripMinutesCalculation() {
+		// Perform trip-level minutes-driven calculation
+		assertEquals(trips.get(0).calculateTripMinutes(), 60);
+		System.out.println(driver.getDriverName() + " " + trips.get(0).calculateTripMinutes());
+	}
+
 }

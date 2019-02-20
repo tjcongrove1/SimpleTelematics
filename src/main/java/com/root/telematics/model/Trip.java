@@ -15,6 +15,16 @@ public class Trip {
 		this.milesDriven = miles;
 		this.averageSpeed = calculateAverageSpeed();
 	}
+	
+
+	/**
+	 * This method calculates the total duration of the trip taken, in minutes
+	 * 
+	 * @return the number of minutes the trip took
+	 */
+	public int calculateTripMinutes() {
+		return (int) (((double) Duration.between(startTime, endTime).getSeconds()) / 60);
+	}
 
 	/**
 	 * This method calculates the average speed traveled during the trip based on
@@ -27,12 +37,24 @@ public class Trip {
 	}
 
 	/**
-	 * This method calculates the total duration of the trip taken, in minutes
-	 * 
-	 * @return the number of minutes the trip took
+	 * @return the averageSpeed
 	 */
-	public int calculateTripMinutes() {
-		return (int) (((double) Duration.between(startTime, endTime).getSeconds()) / 60);
+	public int getAverageSpeed() {
+		return averageSpeed;
+	}
+
+	/**
+	 * @return the endTime
+	 */
+	public LocalTime getEndTime() {
+		return endTime;
+	}
+
+	/**
+	 * @return the milesDriven
+	 */
+	public Double getMilesDriven() {
+		return milesDriven;
 	}
 
 	/**
@@ -43,18 +65,11 @@ public class Trip {
 	}
 
 	/**
-	 * @param startTime
-	 *            the startTime to set
+	 * @param averageSpeed
+	 *            the averageSpeed to set
 	 */
-	public void setStartTime(LocalTime startTime) {
-		this.startTime = startTime;
-	}
-
-	/**
-	 * @return the endTime
-	 */
-	public LocalTime getEndTime() {
-		return endTime;
+	public void setAverageSpeed(int averageSpeed) {
+		this.averageSpeed = averageSpeed;
 	}
 
 	/**
@@ -66,13 +81,6 @@ public class Trip {
 	}
 
 	/**
-	 * @return the milesDriven
-	 */
-	public Double getMilesDriven() {
-		return milesDriven;
-	}
-
-	/**
 	 * @param milesDriven
 	 *            the milesDriven to set
 	 */
@@ -81,17 +89,10 @@ public class Trip {
 	}
 
 	/**
-	 * @return the averageSpeed
+	 * @param startTime
+	 *            the startTime to set
 	 */
-	public int getAverageSpeed() {
-		return averageSpeed;
-	}
-
-	/**
-	 * @param averageSpeed
-	 *            the averageSpeed to set
-	 */
-	public void setAverageSpeed(int averageSpeed) {
-		this.averageSpeed = averageSpeed;
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
 	}
 }

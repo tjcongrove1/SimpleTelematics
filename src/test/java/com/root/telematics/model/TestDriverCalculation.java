@@ -36,4 +36,11 @@ public class TestDriverCalculation {
 		assertEquals(driver.getTotalMilesForAllTrips(), 120);
 		System.out.println(driver.getDriverName() + " " + driver.getTotalMilesForAllTrips());
 	}
+	
+	@Test
+	public void testDriverTripMinutes() {
+		// Perform driver-level total drive-time calculation
+		assertEquals(driver.getTotalMinutesForAllTrips(), 120);
+		System.out.println(driver.getDriverName() + " " + driver.getTotalMinutesForAllTrips());
+	}
 }

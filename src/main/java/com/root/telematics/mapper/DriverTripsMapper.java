@@ -38,28 +38,17 @@ public class DriverTripsMapper {
 				 * If a line starts with the "trip" data tag,
 				 * 
 				 * 1. If the Driver is already present, find it in the list and add the trip to
-				 * the driver's trip list
+				 * the driver's trip list as long the average speed for the trip is between 5
+				 * and 100 miles per hour
 				 */
 				else if (fileLine.get(0).equalsIgnoreCase("trip")) {
 					Driver newEntry = new Driver(fileLine.get(1));
 					Trip thisTrip = new Trip(LocalTime.parse(fileLine.get(2)), LocalTime.parse(fileLine.get(3)),
 							Double.parseDouble(fileLine.get(4)));
-					/**
-					 * Uncomment this logic block if you want to be able to add drivers who haven't
-					 * previously registered based on the name in the trip record
-					 */
-					// if (!driverData.contains(newEntry)) {
-					// if ((5 < thisTrip.getAverageSpeed() && thisTrip.getAverageSpeed() < 100)) {
-					// newEntry.addDriverTrip(thisTrip);
-					// driverData.add(newEntry);
-					// }
-					// } else {
 					if ((5 < thisTrip.getAverageSpeed() && thisTrip.getAverageSpeed() < 100)) {
-						driverData.stream()
-								.filter(driver -> newEntry.getDriverName().equalsIgnoreCase(driver.getDriverName()))
-								.findFirst().get().addDriverTrip(thisTrip);
+						driverData.stream().filter(driver -> newEntry.equals(driver)).findFirst().get()
+								.addDriverTrip(thisTrip);
 					}
-					// }
 				}
 			} catch (Exception e) {
 				// If something goes awry processing a line, simply discard it, make note for
