@@ -263,3 +263,10 @@ I hope you enjoyed (or at least don't find me an idiot after) reading the walkth
 It was refreshing to be able to take a small, simple problem and actually be able to throw some proper problem solving after it instead of just kludging in the fastest answer to play nicely with existing interfaces and timelines, to be honest.  Regardless of whether or not I'm the caliber of developer you guys are looking to have head up your team, it was a pleasure to be able to bust out my developer hat again and actually throw some clean code!
 
 Thanks again for your time, and please don't hesitate to reach out if you'd like to discuss the solution or ask any questions!
+
+# Source on [GitHub]
+
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+   [GitHub]: <https://github.com/tjcongrove1/SimpleTelematics>
