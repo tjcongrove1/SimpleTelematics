@@ -1,14 +1,14 @@
 # Simple Telematics Processor
 
-The processor should be stable, graceful in the face of relatively high volume, and error resistent given a variety of suboptimal inputs.
+The processor should be stable, graceful in the face of relatively high volume, and error resistant given a variety of suboptimal inputs.
 
-  - Functionality (paraticularly that most likely to change) is compartmentalized and modular, and can generally be modified with only minor upstream and downstream changes to support interface changes
+  - Functionality (particularly that most likely to change) is compartmentalized and modular, and can generally be modified with only minor upstream and downstream changes to support interface changes
   - Like pieces of functionality are grouped in a sensical manner to facilitate ease of maintenance
   - All models are built to be extensible and are accessed in such a way that they can be extended without breaking (or even necessarily changing) existing functionality
 
 # Design methodology
 
-  - The implementation is object-oriented, but not just for the sake of being so.  Models are separated from unrelated funcitonality which is separated from utility code, and each contain internal-only (private) methods that necessitate instantiation of new instances of objects as well as publicly-accessable static (and therefore accessible from a generic instance) methods where each respective exposure made the most sense.
+  - The implementation is object-oriented, but not just for the sake of being so.  Models are separated from unrelated functionality which is separated from utility code, and each contain internal-only (private) methods that necessitate instantiation of new instances of objects as well as publicly-accessible static (and therefore accessible from a generic instance) methods where each respective exposure made the most sense.
   - There was no compelling need for interfaces or inheritance, so you won't find any implemented.  "Best practices" are only truly so when there's a legitimate reason for them, and small projects often suffer from over-complication in the name of pedantic properness.
   - I wrote the code as if I were going to be the person to maintain it.  While it's far from unoptimized, I opted in many places for simpler-to-read implementations of logic that could have been minutely faster or sleeker at the expense of legibility and understandability.  Maintaining code costs money, just like CPU cycles do, and devs are more expensive than hardware.
 
@@ -31,11 +31,11 @@ The following utility call (an example of a public, static implementation of gen
 ```java
 fileLines = FileHandler.readTelemetryFile(basePath + args[0]);
 ```
-And this one sends the data off to process and generate the report.  The name is so specific becuase there are two of them, per my previous email.
+And this one sends the data off to process and generate the report.  The name is so specific because there are two of them, per my previous email.
 ```java
 ReportGenerator.generateSimpleDriverReportUsingTotalAverages(DriverTripsMapper.mapFileToDriversList(fileLines));
 ```
-And that's all there is to it!  Two lines to sit on for debugging, and you can walk right into the rest of the code to troublehsoot.
+And that's all there is to it!  Two lines to sit on for debugging, and you can walk right into the rest of the code to troubleshoot.
 
 There are also specific user error messages for:
   - No arguments passed
@@ -90,7 +90,7 @@ public int getTotalMinutesForAllTrips()
 ```
 These two methods are of note because they are logically the same but functionally different.
   - The first internally uses each trip's pre-calculated average speed divided by the number of trips to determine driver-average speed
-  - The second internally uses the raw total of ALL time driven in conjunction withthe raw total of ALL mileage driven to determine the driver-average speed.
+  - The second internally uses the raw total of ALL time driven in conjunction with the raw total of ALL mileage driven to determine the driver-average speed.
 ```java
 public int getAverageSpeedForAllTrips()
 public int getAverageSpeedForAllTripsBasedOnTotals()
@@ -147,7 +147,7 @@ The logic to check for empty and spaces-only lines is implemented with String, w
 ### Report generation
 The report generator has two reports implemented currently, per my emailed questions.
 
-The one I originally designed exclusively leverages the purpose-built driver-level calculatory methods which keeps it very clean and readable.
+The one I originally designed exclusively leverages the purpose-built Driver-level calculatory methods which keeps it very clean and readable.
 ```java
 	public static void generateSimpleDriverReport(List<Driver> drivers) {
 		drivers.sort(new SortByMileage());
@@ -192,7 +192,7 @@ Processing the Driver command is simple.  The very first item in the record is t
 ### Trips
 The Trip processor is a touch dicier, but not overly so.
 
-Upon identifying a "trip" record and creating a new Trip model from it (which automatically calculates the average speed, remember), there is a logic block to discard "improbable" trips and then a Java Stream implementaiton to find the correlated driver (wherever in the list it may reside) and assign the trip to it.  This is significantly more efficient AND readable than iterating through the entire list looking for the right one for each trip.
+Upon identifying a "trip" record and creating a new Trip model from it (which automatically calculates the average speed, remember), there is a logic block to discard "improbable" trips and then a Java Stream implementation to find the correlated driver (wherever in the list it may reside) and assign the trip to it.  This is significantly more efficient AND readable than iterating through the entire list looking for the right one for each trip.
 
 If Driver were extended to include last name or VIN or a dozen other fields, the only changes required to continue matching would be to Driver's own internal overridden implementation of the ```.equals()``` method.
 ```java
@@ -207,10 +207,10 @@ If Driver were extended to include last name or VIN or a dozen other fields, the
 				}
 ```
 
-This is another place that I originally added, then later stripped out, additional functionality that was not explicitly required by the design instsructions.
+This is another place that I originally added, then later stripped out, additional functionality that was not explicitly required by the design instructions.
   - In the event that a trip event is present before a driver is registered, the trip will currently be output as an error message stating that the driver was not found.
   - I previously implemented and then removed (given the explicit description of each operation's intent and unknown business drivers behind that specificity) functionality to first check if a driver existed and, if not, register that driver entity and associate the trip with them.  
-  - The potential downside to such functionality would be that if you DID extend driver with additional data, that data would not be present in a "partially-registered" driver generated by the presence of a trip until a proper registraiton record came through for them.
+  - The potential downside to such functionality would be that if you DID extend driver with additional data, that data would not be present in a "partially-registered" driver generated by the presence of a trip until a proper registration record came through for them.
   - The upside is that you wouldn't be "losing" good trips for unregistered drivers, they would simple be attached to an incomplete profile until registration was completed at a later point in time.
 
 #### Exceptions are handled in three distinct ways:
@@ -233,7 +233,7 @@ Logically, we can be reasonably certian that we understand our code and how it b
 The file I used for my unit tests included:
   - Blank records
   - Spaces-only records
-  - Trips that preceeded their correlated Driver registration commands
+  - Trips that preceded their correlated Driver registration commands
   - Implausible data (both < 5mph and > 100mph average trip speed)
   - Nonsense rows that did not begin with a command
   - Valid trip records with malformed data inside of them
