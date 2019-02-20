@@ -22,15 +22,13 @@ public class FileHandler {
 		List<List<String>> fileLines = new ArrayList<List<String>>();
 		inputStream = new FileInputStream(filePath);
 		sc = new Scanner(inputStream, "UTF-8");
-		StringBuffer line = new StringBuffer();
+		String line = null;
 
 		// Read each line of the space-delimited file into a list
 		while (sc.hasNextLine()) {
-			// StringBuffer is a little messy to read, but big files will appreciate it
-			if (!((line.append(sc.nextLine())).length() == 0)) {
-				fileLines.add(Arrays.asList(line.toString().split(" ")));
-				// Cleanup for memory management
-				line.setLength(0);
+			// Relatively inefficient, but cleanest way to ignore empty lines in the file
+			if(!(line = sc.nextLine()).trim().isEmpty()) {
+				fileLines.add(Arrays.asList(line.split(" ")));
 			}
 		}
 
