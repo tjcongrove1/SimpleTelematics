@@ -27,6 +27,15 @@ public class Trip {
 	}
 
 	/**
+	 * This method calculates the total duration of the trip taken, in minutes
+	 * 
+	 * @return the number of minutes the trip took
+	 */
+	public int calculateTripMinutes() {
+		return (int) (((double) Duration.between(startTime, endTime).getSeconds()) / 60);
+	}
+
+	/**
 	 * @return the startTime
 	 */
 	public LocalTime getStartTime() {

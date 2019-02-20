@@ -52,6 +52,10 @@ public class SimpleTelematics {
 			}
 		}
 
-		ReportGenerator.generateSimpleDriverReport(DriverTripsMapper.mapFileToDriversList(fileLines));
+//		 This report leverages native calculatory methods in the trip classes
+//		 ReportGenerator.generateSimpleDriverReport(DriverTripsMapper.mapFileToDriversList(fileLines));
+		
+//		 This report generates the result you asked for with your sample output.
+		ReportGenerator.generateSimpleDriverReportUsingTotalAverages(DriverTripsMapper.mapFileToDriversList(fileLines));
 	}
 }

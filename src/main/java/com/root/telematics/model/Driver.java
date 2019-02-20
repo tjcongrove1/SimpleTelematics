@@ -51,6 +51,20 @@ public class Driver {
 			return 0;
 		}
 	}
+	
+	public int getTotalMinutesForAllTrips() {
+		if (null != this.driverTrips) {
+			int totaltime = 0;
+
+			for (Trip trip : this.driverTrips) {
+				totaltime += Math.round(trip.calculateTripMinutes());
+			}
+
+			return totaltime;
+		} else {
+			return 0;
+		}
+	}
 
 	/**
 	 * @return the driverName

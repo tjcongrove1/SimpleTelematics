@@ -23,11 +23,11 @@ public class FileHandlerTest {
 		}
 
 		// Read the defualt first trip of the test file and check its contents
-		assertEquals(testFileLines.get(4).get(0), "Trip");
-		assertEquals(testFileLines.get(4).get(1), "MrDontTouchMe");
-		assertEquals(testFileLines.get(4).get(2), "08:00");
-		assertEquals(testFileLines.get(4).get(3), "09:00");
-		assertEquals(testFileLines.get(4).get(4), "60.0");
+		assertEquals(testFileLines.get(5).get(0), "Trip");
+		assertEquals(testFileLines.get(5).get(1), "MrDontTouchMe");
+		assertEquals(testFileLines.get(5).get(2), "08:00");
+		assertEquals(testFileLines.get(5).get(3), "09:00");
+		assertEquals(testFileLines.get(5).get(4), "60.0");
 	}
 
 	// Test that proper exception is thrown when file is wrong

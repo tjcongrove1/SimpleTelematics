@@ -6,6 +6,13 @@ import java.util.List;
 import com.root.telematics.model.Driver;
 
 public class ReportGenerator {
+	/**
+	 * This report genearates total miles and average speed for each driver based on
+	 * aggregated individual trip averages. The report is presented in decending
+	 * order of mileage driven
+	 * 
+	 * @param drivers
+	 */
 	public static void generateSimpleDriverReport(List<Driver> drivers) {
 		drivers.sort(new SortByMileage());
 
@@ -17,9 +24,27 @@ public class ReportGenerator {
 			System.out.print(System.lineSeparator());
 		}
 	}
-	
+
+	/**
+	 * This report genearates total miles and average speed for each driver based on
+	 * TOTAL TRIP TIME and TOTAL MILEAGE across all trips. The report is presented
+	 * in decending order of mileage driven
+	 * 
+	 * @param drivers
+	 */
 	public static void generateSimpleDriverReportUsingTotalAverages(List<Driver> drivers) {
-		
+		drivers.sort(new SortByMileage());
+
+		for (Driver driver : drivers) {
+			System.out.print(driver.getDriverName() + ": " + driver.getTotalMilesForAllTrips() + " miles");
+			if (driver.getTotalMilesForAllTrips() > 0) {
+				System.out.print(" @ " + Math.round(
+						((double) (driver.getTotalMilesForAllTrips() / (double) (driver.getTotalMinutesForAllTrips())))
+								* 60)
+						+ " mph");
+			}
+			System.out.print(System.lineSeparator());
+		}
 	}
 }
 
