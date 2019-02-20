@@ -37,6 +37,14 @@ public class DriverTripsMapperTest {
 		// Perform actual mapping call to find drivers and assign trips
 		List<Driver> testDriverTrips = DriverTripsMapper.mapFileToDriversList(testFileLines);
 
+		// Perform driver-level average speed calculation
+		for (Driver driver : testDriverTrips) {
+			if (driver.getDriverName().equalsIgnoreCase("mrdonttouchme")) {
+				assertEquals(driver.getAverageSpeedForAllTrips(), 60);
+			}
+			System.out.println(driver.getDriverName() + " " + driver.getAverageSpeedForAllTrips());
+		}
+		
 		// Make sure the right number of drivers are identified
 		assertEquals(testDriverTrips.size(), drivers.size());
 		// Make sure our default driver has his trips correctly assigned

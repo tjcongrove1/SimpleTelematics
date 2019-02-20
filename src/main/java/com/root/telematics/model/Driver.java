@@ -11,6 +11,20 @@ public class Driver {
 		this.setDriverName(name);
 	}
 
+	public int getAverageSpeedForAllTrips() {
+		if (null != this.driverTrips) {
+			int totalSpeedValues = 0;
+
+			for (Trip trip : this.driverTrips) {
+				totalSpeedValues += trip.getAverageSpeed();
+			}
+//			System.out.println(this.driverName + " " + totalSpeedValues / this.driverTrips.size());
+			return totalSpeedValues / this.driverTrips.size();
+		} else {
+			return 0;
+		}
+	}
+
 	/**
 	 * @return the driverName
 	 */
