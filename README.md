@@ -1,5 +1,9 @@
 # Simple Telematics Processor
 
+### Building
+The project is a Maven project, built with Maven 3.3.9 on Java 1.8 Enterprise Edition 64-bit inside of Eclipse Oxygen Release (4.7.0).  There should be no specific dependencies tying you to a particular Java 8 JDK or IDE.
+
+### Overview
 The processor should be stable, graceful in the face of relatively high volume, and error resistant given a variety of suboptimal inputs.
 
   - Functionality (particularly that most likely to change) is compartmentalized and modular, and can generally be modified with only minor upstream and downstream changes to support interface changes
