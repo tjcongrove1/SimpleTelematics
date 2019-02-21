@@ -3,6 +3,13 @@
 ### Building
 The project is a Maven project, built with Maven 3.3.9 on Java 1.8 Enterprise Edition 64-bit inside of Eclipse Oxygen Release (4.7.0).  There should be no specific dependencies tying you to a particular Java 8 JDK or IDE.
 
+### Running
+The latest version of the project is built into ```/SimpleTelematics/target/SimpleTelematics-1.0.0-jar-with-dependencies.jar``` and can be run either in an IDE or via ```java -jar jarName.jar targetFile.dat```.
+
+It expects the target file to be in the same directory as the JAR itself, and will throw appropriate error messages if that's not the case.
+
+JUnit tests can be run either via Maven build or independently of the build, leveraging the test file provided.  The file may be modified, but new records should only be appended to the END of the file, and records for ```MrDontTouchMe``` should be left alone and in order, as they're used for unit-testing calculations.
+
 ### Overview
 The processor should be stable, graceful in the face of relatively high volume, and error resistant given a variety of suboptimal inputs.
 
