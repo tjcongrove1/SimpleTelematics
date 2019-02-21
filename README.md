@@ -18,8 +18,8 @@ The processor should be stable, graceful in the face of relatively high volume, 
 
 # The nuts and bolts
 
-  - I made a conscious decision to physically associate drivers and trips, as they are logically associated and my custom implementations of comparation code to fit the Driver class as well as Java 8's Stream API removed the necessity of using a HashMap or similar to swiftly identify Drivers as the key for trips and associate them without iterating through the list.
-  - The main class consists simply of two call-outs and exception handling for missing and malformed files.  I buit a second version in a branch with a fairly robust user interface that continually prompted the user to provide the right file until it existed, but I omitted it in the final revision as it wasn't a requirement.
+  - I made a conscious decision to physically associate drivers and trips, as they are logically associated and my custom implementations of comparation code to fit the Driver class, as well as Java 8's Stream API removed the necessity of using a HashMap or similar to swiftly identify Drivers as the key for trips and associate them without iterating through the list.
+  - The main class consists simply of two call-outs and exception handling for missing and malformed files.  I built a second version in a branch with a fairly robust user interface that continually prompted the user to provide the right file until it existed, but I omitted it in the final revision as it wasn't a requirement.
   - The main components are:
 ```
 Data and Domain Modeling
@@ -63,7 +63,7 @@ Bob: 0 miles
 
 # The models
 ### Driver 
-Driver directly owns a list of trips, as the same is logically true.  Driver can be easily extended to contain more and more driver data without compromising trip processing.  
+Driver directly owns a list of trips, as the same is logically true.  Driver can be easily extended to contain more driver data without compromising trip processing.  
 ```java
 public class Driver {
 	private String driverName;
@@ -127,7 +127,7 @@ Things like average speed are automatically calculated upon object initializatio
 		return (int) Math.round(milesDriven / ((double) Duration.between(startTime, endTime).getSeconds()) * 3600);
 	}
 ```
-Trip also contains a method I created long after its original design both to demonstrate its modular extensibility and to feed the new reporting method I later became aware of.  Including this method inside the model itself means it can be implemented anywhere the model is present rather than being constrained to both a manual implementation AND the presence of the data in the model.
+Trip also contains a method I created long after its original design both to demonstrate its modular extensibility and to feed the new reporting method I later became aware of.  Including this method inside the model itself means it can be implemented anywhere the model is present, rather than being constrained to both a manual implementation AND the presence of the data in the model.
 ```java
 	public int calculateTripMinutes() {
 		return (int) (((double) Duration.between(startTime, endTime).getSeconds()) / 60);
@@ -151,7 +151,7 @@ The logic to check for empty and spaces-only lines is implemented with String, w
 ### Report generation
 The report generator has two reports implemented currently, per my emailed questions.
 
-The one I originally designed exclusively leverages the purpose-built Driver-level calculatory methods which keeps it very clean and readable.
+The one I originally designed exclusively leverages the purpose-built Driver-level calculatory methods, which keeps it very clean and readable.
 ```java
 	public static void generateSimpleDriverReport(List<Driver> drivers) {
 		drivers.sort(new SortByMileage());
@@ -165,7 +165,7 @@ The one I originally designed exclusively leverages the purpose-built Driver-lev
 		}
 	}
 ```
-The one that's currently implemented uses a different method to get te average speed, and the difference is explained above in the Driver object section.
+The one that's currently implemented uses a different method to get the average speed, and the difference is explained above in the Driver object section.
 ```java
 	public static void generateSimpleDriverReportUsingTotalAverages(List<Driver> drivers) {
 		drivers.sort(new SortByMileage());
@@ -180,7 +180,7 @@ The one that's currently implemented uses a different method to get te average s
 	}
 ```
 # The mapper
-Arguably one of the most important parts of the process (aside from the actual math) is ensuring that the right trips get assigned to the right driver.  The class simply consumes an undefined list of "file lines" and then uses positional logic to process.  This makes it incredibly easy to add attributes to either driver or trip rows and enable their functionality simply by extending the processor shown below.
+Arguably, one of the most important parts of the process (aside from the actual math) is ensuring that the right trips get assigned to the right driver.  The class simply consumes an undefined list of "file lines" and then uses positional logic to process.  This makes it incredibly easy to add attributes to either driver or trip rows and enable their functionality simply by extending the processor shown below.
 
 ### Driver
 Processing the Driver command is simple.  The very first item in the record is the command, and the second is the driver name.  Adding driver last name, VIN, etc, would simply be a matter of adding those fields to the Driver model, adding them to the constructor, and mapping them here.
@@ -196,7 +196,7 @@ Processing the Driver command is simple.  The very first item in the record is t
 ### Trips
 The Trip processor is a touch dicier, but not overly so.
 
-Upon identifying a "trip" record and creating a new Trip model from it (which automatically calculates the average speed, remember), there is a logic block to discard "improbable" trips and then a Java Stream implementation to find the correlated driver (wherever in the list it may reside) and assign the trip to it.  This is significantly more efficient AND readable than iterating through the entire list looking for the right one for each trip.
+Upon identifying a "trip" record and creating a new Trip model from it (which automatically calculates the average speed), there is a logic block to discard "improbable" trips and then a Java Stream implementation to find the correlated driver (wherever in the list it may reside) and assign the trip to it.  This is significantly more efficient AND readable than iterating through the entire list looking for the right one for each trip.
 
 If Driver were extended to include last name or VIN or a dozen other fields, the only changes required to continue matching would be to Driver's own internal overridden implementation of the ```.equals()``` method.
 ```java
@@ -215,7 +215,7 @@ This is another place that I originally added, then later stripped out, addition
   - In the event that a trip event is present before a driver is registered, the trip will currently be output as an error message stating that the driver was not found.
   - I previously implemented and then removed (given the explicit description of each operation's intent and unknown business drivers behind that specificity) functionality to first check if a driver existed and, if not, register that driver entity and associate the trip with them.  
   - The potential downside to such functionality would be that if you DID extend driver with additional data, that data would not be present in a "partially-registered" driver generated by the presence of a trip until a proper registration record came through for them.
-  - The upside is that you wouldn't be "losing" good trips for unregistered drivers, they would simple be attached to an incomplete profile until registration was completed at a later point in time.
+  - The upside is that you wouldn't be "losing" good trips for unregistered drivers, they would simply be attached to an incomplete profile until registration was completed at a later point in time.
 
 #### Exceptions are handled in three distinct ways:
   - "Driver not found" exceptions caused by a trip appearing before a registration in the file have specific verbiage, driven by the type of exception thrown
