@@ -198,7 +198,7 @@ The Trip processor is a touch dicier, but not overly so.
 
 Upon identifying a "trip" record and creating a new Trip model from it (which automatically calculates the average speed), there is a logic block to discard "improbable" trips and then a Java Stream implementation to find the correlated driver (wherever in the list it may reside) and assign the trip to it.  This is significantly more efficient AND readable than iterating through the entire list looking for the right one for each trip.
 
-If Driver were extended to include last name or VIN or a dozen other fields, the only changes required to continue matching would be to Driver's own internal overridden implementation of the ```.equals()``` method.
+If Driver were extended to include last name, or VIN, or a dozen other fields, the only changes required to continue matching would be to Driver's own internal overridden implementation of the ```.equals()``` method.
 ```java
 				else if (fileLine.get(0).equalsIgnoreCase("trip")) {
 					Driver newEntry = new Driver(fileLine.get(1));
@@ -219,7 +219,7 @@ This is another place that I originally added, then later stripped out, addition
 
 #### Exceptions are handled in three distinct ways:
   - "Driver not found" exceptions caused by a trip appearing before a registration in the file have specific verbiage, driven by the type of exception thrown
-  - General "bad data" and other exceptions have more generic verbiage, with the record in question and the exception message both displayed.
+  - General "bad data" and other exceptions have more generic verbiage, with the record in question and the exception message both displayed
   - Records that do not begin with the Driver or Trip commands are simply ignored
 ```sh
 Exception occurred processing line: [Trip, MrDontTouchMe, 08:00, 09:00, 60.0]
